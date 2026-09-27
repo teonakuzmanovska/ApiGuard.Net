@@ -1,0 +1,13 @@
+@Sample_HostAddress = http://localhost:5069
+
+POST {{Sample_HostAddress}}/api/sample
+Content-Type: application/json
+
+{
+  "name": "John",
+  "age": 30,
+  "currentDepartment": 0,
+  "pastDepartments": [1, 2]
+}
+
+###
