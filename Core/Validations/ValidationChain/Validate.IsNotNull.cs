@@ -3,9 +3,9 @@ using Core.Validations.Models;
 
 namespace Core.Validations.ValidationChain;
 
-public partial class ValidationChain
+public partial class Validate
 {
-    public ValidationChain IsNotNull<T>(
+    public Validate IsNotNull<T>(
         T? property,
         [CallerArgumentExpression(nameof(property))] string propertyName = "")
     {
@@ -19,7 +19,7 @@ public partial class ValidationChain
             Error = new ValidationError
             {
                 PropertyName = propertyName,
-                ErrorMessage = $"{propertyName} must not be null."
+                ErrorMessage = "Property must not be null."
             };
         }
 

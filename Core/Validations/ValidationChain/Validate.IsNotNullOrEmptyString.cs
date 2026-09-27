@@ -3,11 +3,10 @@ using Core.Validations.Models;
 
 namespace Core.Validations.ValidationChain;
 
-public partial class ValidationChain
+public partial class Validate
 {
-    public ValidationChain IsAssignableTo<T>(
-        T? property,
-        Type type,
+    public Validate IsNotNullOrEmptyString(
+        string? property,
         [CallerArgumentExpression(nameof(property))] string propertyName = "")
     {
         if (Error is not null)
@@ -15,12 +14,12 @@ public partial class ValidationChain
             return this;
         }
 
-        if (property is null || !type.IsInstanceOfType(property))
+        if (string.IsNullOrWhiteSpace(property))
         {
             Error = new ValidationError
             {
                 PropertyName = propertyName,
-                ErrorMessage = $"{propertyName} must be assignable to {type.Name}."
+                ErrorMessage = "Property must not be null, empty or whitespace."
             };
         }
 

@@ -3,9 +3,9 @@ using Core.Validations.Models;
 
 namespace Core.Validations.ValidationChain;
 
-public partial class ValidationChain
+public partial class Validate
 {
-    public ValidationChain IsNotNullOrEmptyList<T>(
+    public Validate IsNotNullOrEmptyList<T>(
         IEnumerable<T>? property,
         [CallerArgumentExpression(nameof(property))] string propertyName = "")
     {
@@ -19,7 +19,7 @@ public partial class ValidationChain
             Error = new ValidationError
             {
                 PropertyName = propertyName,
-                ErrorMessage = $"{propertyName} must not be null or empty."
+                ErrorMessage = "Property must not be null or empty."
             };
         }
 

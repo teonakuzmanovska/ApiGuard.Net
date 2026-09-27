@@ -3,9 +3,9 @@ using Core.Validations.Models;
 
 namespace Core.Validations.ValidationChain;
 
-public partial class ValidationChain
+public partial class Validate
 {
-    public ValidationChain IsExactType<T>(
+    public Validate IsAssignableTo<T>(
         T? property,
         Type type,
         [CallerArgumentExpression(nameof(property))] string propertyName = "")
@@ -15,12 +15,12 @@ public partial class ValidationChain
             return this;
         }
 
-        if (property is null || property.GetType() != type)
+        if (property is null || !type.IsInstanceOfType(property))
         {
             Error = new ValidationError
             {
                 PropertyName = propertyName,
-                ErrorMessage = $"{propertyName} must be exactly of type {type.Name}."
+                ErrorMessage = $"Property must be assignable to {type.Name}."
             };
         }
 

@@ -2,7 +2,7 @@
 
 namespace Core.Validations.ValidationChain;
 
-public partial class ValidationChain
+public partial class Validate
 {
     private ValidationError? Error { get; set; }
 

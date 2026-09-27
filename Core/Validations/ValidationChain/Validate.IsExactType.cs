@@ -3,10 +3,11 @@ using Core.Validations.Models;
 
 namespace Core.Validations.ValidationChain;
 
-public partial class ValidationChain
+public partial class Validate
 {
-    public ValidationChain IsNotNullOrEmptyString(
-        string? property,
+    public Validate IsExactType<T>(
+        T? property,
+        Type type,
         [CallerArgumentExpression(nameof(property))] string propertyName = "")
     {
         if (Error is not null)
@@ -14,12 +15,12 @@ public partial class ValidationChain
             return this;
         }
 
-        if (string.IsNullOrWhiteSpace(property))
+        if (property is null || property.GetType() != type)
         {
             Error = new ValidationError
             {
                 PropertyName = propertyName,
-                ErrorMessage = $"{propertyName} must not be null, empty or whitespace."
+                ErrorMessage = $"Property must be exactly of type {type.Name}."
             };
         }
 
