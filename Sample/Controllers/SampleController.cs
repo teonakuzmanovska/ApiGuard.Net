@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.Validations.ValidationChain;
+using Microsoft.AspNetCore.Mvc;
 using Sample.Requests;
 
 namespace Sample.Controllers;
@@ -10,6 +11,18 @@ public class SampleController : ControllerBase
     [HttpPost]
     public IActionResult Create(CreateEmployeeRequest request)
     {
-        return Ok(request);
+        var validationResult = new ValidationChain()
+            .IsNotNullOrEmptyString(request.Name)
+            .IsNotNull(request.Age)
+            .IsExactType(request.CurrentDepartment, typeof(Department))
+            .IsNotNullOrEmptyList(request.PastDepartments)
+            .Result();
+        
+        if(validationResult.IsValid)
+        {
+            return Ok(request);
+        }
+        
+        return BadRequest(validationResult);
     }
 }

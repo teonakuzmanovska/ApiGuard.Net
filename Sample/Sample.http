@@ -5,9 +5,9 @@ Content-Type: application/json
 
 {
   "name": "John",
-  "age": 30,
+  "age": null,
   "currentDepartment": 0,
-  "pastDepartments": [1, 2]
+  "pastDepartments": []
 }
 
 ###
