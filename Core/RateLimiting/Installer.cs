@@ -22,7 +22,7 @@ public static class Installer
         return builder;
     }
 
-    public static IServiceCollection AddDefaultFixedWindowRateLimitingPolicy(
+    internal static IServiceCollection AddDefaultFixedWindowRateLimitingPolicy(
         this IServiceCollection services,
         int permitLimit,
         TimeSpan window)
