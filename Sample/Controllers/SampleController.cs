@@ -18,6 +18,7 @@ public class SampleController : ControllerBase
             .IsNotNull(request.Age, nameof(request.Age))
             .IsExactType(request.CurrentDepartment, typeof(Department), nameof(request.CurrentDepartment))
             .IsNotNullOrEmptyList(request.PastDepartments, nameof(request.PastDepartments))
+            .IsSatisfied(() => request.Age >= 18, nameof(request.Age), "Property must be greater than 18")
             .Result();
 
         if (!validationResult.IsValid)

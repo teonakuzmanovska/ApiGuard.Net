@@ -26,7 +26,7 @@ Content-Type: application/json
 
 ### Empty name - 400
 
-POST {{Sample_HostAddress}}/api/sample/validateAndCreate
+POST {{Sample_HostAddress}}/api/sample/validateRequest
 Content-Type: application/json
 
 {
@@ -38,7 +38,7 @@ Content-Type: application/json
 
 ### Empty past departments - 400
 
-POST {{Sample_HostAddress}}/api/sample/validateAndCreate
+POST {{Sample_HostAddress}}/api/sample/validateRequest
 Content-Type: application/json
 
 {
@@ -46,6 +46,17 @@ Content-Type: application/json
   "age": 25,
   "currentDepartment": 0,
   "pastDepartments": []
+}
+
+### Age less then 18 - 400
+POST {{Sample_HostAddress}}/api/sample/validateRequest
+Content-Type: application/json
+
+{
+  "name": "John",
+  "age": 17,
+  "currentDepartment": 0,
+  "pastDepartments": [1,2]
 }
 
 ### Internal server error - 500
