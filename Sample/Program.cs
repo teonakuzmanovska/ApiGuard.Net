@@ -1,4 +1,6 @@
 using Core.ErrorHandling;
+using Core.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,12 +10,18 @@ builder.Services.AddOpenApi();
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddProblemDetails();
 
+builder.Services.AddGlobalFixedWindowRateLimitingPolicy(3,TimeSpan.FromSeconds(10));
+builder.Services.AddFixedWindowRateLimitingPolicy("policy1",1,TimeSpan.FromSeconds(10));
+builder.Services.AddFixedWindowRateLimitingPolicy("policy2",5,TimeSpan.FromSeconds(10));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseRateLimiter();
 
 app.UseExceptionHandler();
 

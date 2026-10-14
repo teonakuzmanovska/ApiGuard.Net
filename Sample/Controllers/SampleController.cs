@@ -1,6 +1,7 @@
 ﻿using Core.Validations.Exceptions;
 using Core.Validations.ValidationChain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Sample.Requests;
 
 namespace Sample.Controllers;
@@ -33,5 +34,19 @@ public class SampleController : ControllerBase
         var internalError = "InternalError that must not be exposed.";
         
         throw new Exception(internalError);
+    }
+    
+    [HttpGet("rateLimiting/policy1")]
+    [EnableRateLimiting("policy1")]
+    public IActionResult RateLimitingPolicy1()
+    {
+        return Ok();
+    }
+
+    [HttpGet("rateLimiting/policy2")]
+    [EnableRateLimiting("policy2")]
+    public IActionResult RateLimitingPolicy2()
+    {
+        return Ok();
     }
 }
