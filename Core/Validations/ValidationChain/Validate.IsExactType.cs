@@ -6,16 +6,16 @@ namespace Core.Validations.ValidationChain;
 public partial class Validate
 {
     public Validate IsExactType<T>(
-        T? property,
+        T property,
         Type type,
-        [CallerArgumentExpression(nameof(property))] string propertyName = "")
+        string propertyName) where T : notnull
     {
         if (Error is not null)
         {
             return this;
         }
 
-        if (property is null || property.GetType() != type)
+        if (property.GetType() != type)
         {
             Error = new ValidationError
             {

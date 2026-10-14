@@ -7,7 +7,7 @@ public partial class Validate
 {
     public Validate IsNotNullOrEmptyList<T>(
         IEnumerable<T>? property,
-        [CallerArgumentExpression(nameof(property))] string propertyName = "")
+        string propertyName)
     {
         if (Error is not null)
         {
@@ -19,7 +19,7 @@ public partial class Validate
             Error = new ValidationError
             {
                 PropertyName = propertyName,
-                ErrorMessage = "Property must not be null or empty."
+                ErrorMessage = "List property must not be null or empty."
             };
         }
 

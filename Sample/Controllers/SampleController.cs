@@ -1,4 +1,5 @@
-﻿using Core.Validations.ValidationChain;
+﻿using Core.Validations.Exceptions;
+using Core.Validations.ValidationChain;
 using Microsoft.AspNetCore.Mvc;
 using Sample.Requests;
 
@@ -8,21 +9,29 @@ namespace Sample.Controllers;
 [Route("api/[controller]")]
 public class SampleController : ControllerBase
 {
-    [HttpPost]
-    public IActionResult Create(CreateEmployeeRequest request)
+    [HttpPost("validateAndCreate")]
+    public IActionResult ValidateAndCreate(CreateEmployeeRequest request)
     {
         var validationResult = new Validate()
-            .IsNotNullOrEmptyString(request.Name)
-            .IsNotNull(request.Age)
-            .IsExactType(request.CurrentDepartment, typeof(Department))
-            .IsNotNullOrEmptyList(request.PastDepartments)
+            .IsNotNullOrWhitespace(request.Name, nameof(request.Name))
+            .IsNotNull(request.Age, nameof(request.Age))
+            .IsExactType(request.CurrentDepartment, typeof(Department), nameof(request.CurrentDepartment))
+            .IsNotNullOrEmptyList(request.PastDepartments,  nameof(request.PastDepartments))
             .Result();
 
-        if(validationResult.IsValid)
+        if (validationResult.Error is not null)
         {
-            return Ok(request);
+            throw new ApiValidationException(validationResult.Error);
         }
         
-        return BadRequest(validationResult);
+        return Ok();
+    }
+    
+    [HttpGet("internalServerError")]
+    public IActionResult Return500()
+    {
+        var internalError = "InternalError that must not be exposed.";
+        
+        throw new Exception(internalError);
     }
 }

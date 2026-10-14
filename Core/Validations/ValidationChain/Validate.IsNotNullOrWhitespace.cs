@@ -5,9 +5,9 @@ namespace Core.Validations.ValidationChain;
 
 public partial class Validate
 {
-    public Validate IsNotNullOrEmptyString(
+    public Validate IsNotNullOrWhitespace(
         string? property,
-        [CallerArgumentExpression(nameof(property))] string propertyName = "")
+        string propertyName)
     {
         if (Error is not null)
         {
@@ -19,7 +19,7 @@ public partial class Validate
             Error = new ValidationError
             {
                 PropertyName = propertyName,
-                ErrorMessage = "Property must not be null, empty or whitespace."
+                ErrorMessage = "String property must not be null, empty or whitespace."
             };
         }
 

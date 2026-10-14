@@ -1,13 +1,53 @@
 @Sample_HostAddress = http://localhost:5069
 
-POST {{Sample_HostAddress}}/api/sample
+### Valid request - 200
+
+POST {{Sample_HostAddress}}/api/sample/validateAndCreate
+Content-Type: application/json
+
+{
+  "name": "John",
+  "age": 25,
+  "currentDepartment": 0,
+  "pastDepartments": [0]
+}
+
+### Null age - 400
+
+POST {{Sample_HostAddress}}/api/sample/validateAndCreate
 Content-Type: application/json
 
 {
   "name": "John",
   "age": null,
   "currentDepartment": 0,
+  "pastDepartments": [0]
+}
+
+### Empty name - 400
+
+POST {{Sample_HostAddress}}/api/sample/validateAndCreate
+Content-Type: application/json
+
+{
+  "name": "",
+  "age": 25,
+  "currentDepartment": 0,
+  "pastDepartments": [0]
+}
+
+### Empty past departments - 400
+
+POST {{Sample_HostAddress}}/api/sample/validateAndCreate
+Content-Type: application/json
+
+{
+  "name": "John",
+  "age": 25,
+  "currentDepartment": 0,
   "pastDepartments": []
 }
 
-###
+### Internal server error - 500
+
+GET {{Sample_HostAddress}}/api/sample/internalServerError

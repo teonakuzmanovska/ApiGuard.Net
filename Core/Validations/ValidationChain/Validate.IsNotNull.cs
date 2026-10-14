@@ -7,7 +7,7 @@ public partial class Validate
 {
     public Validate IsNotNull<T>(
         T? property,
-        [CallerArgumentExpression(nameof(property))] string propertyName = "")
+        string propertyName)
     {
         if (Error is not null)
         {

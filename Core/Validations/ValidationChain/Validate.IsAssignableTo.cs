@@ -6,21 +6,21 @@ namespace Core.Validations.ValidationChain;
 public partial class Validate
 {
     public Validate IsAssignableTo<T>(
-        T? property,
+        T property,
         Type type,
-        [CallerArgumentExpression(nameof(property))] string propertyName = "")
+        string propertyName) where T : notnull
     {
         if (Error is not null)
         {
             return this;
         }
 
-        if (property is null || !type.IsInstanceOfType(property))
+        if (!type.IsInstanceOfType(property))
         {
             Error = new ValidationError
             {
                 PropertyName = propertyName,
-                ErrorMessage = $"Property must be assignable to {type.Name}."
+                ErrorMessage = $"{typeof(T)} is not assignable to {type.Name} type."
             };
         }
 
