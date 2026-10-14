@@ -10,7 +10,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddProblemDetails();
 
-builder.Services.AddGlobalFixedWindowRateLimitingPolicy(3,TimeSpan.FromSeconds(10));
+builder.Services.AddDefaultFixedWindowRateLimitingPolicy(3,TimeSpan.FromSeconds(10));
 builder.Services.AddFixedWindowRateLimitingPolicy("policy1",1,TimeSpan.FromSeconds(10));
 builder.Services.AddFixedWindowRateLimitingPolicy("policy2",5,TimeSpan.FromSeconds(10));
 
@@ -27,6 +27,7 @@ app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.MapControllers()
+    .UseApiGuardDefaultRateLimiting();
 
 app.Run();

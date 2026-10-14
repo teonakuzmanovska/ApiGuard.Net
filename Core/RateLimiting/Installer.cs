@@ -1,5 +1,4 @@
-﻿using System.Threading.RateLimiting;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +7,22 @@ namespace Core.RateLimiting;
 
 public static class Installer
 {
-    public static IServiceCollection AddGlobalFixedWindowRateLimitingPolicy(
+    public static ControllerActionEndpointConventionBuilder UseApiGuardDefaultRateLimiting(
+        this ControllerActionEndpointConventionBuilder builder)
+    {
+        builder.Add(endpointBuilder =>
+        {
+            if (!endpointBuilder.Metadata.OfType<EnableRateLimitingAttribute>().Any())
+            {
+                endpointBuilder.Metadata.Add(
+                    new EnableRateLimitingAttribute(Constants.ApiGuardDefaultPolicyName));
+            }
+        });
+
+        return builder;
+    }
+
+    public static IServiceCollection AddDefaultFixedWindowRateLimitingPolicy(
         this IServiceCollection services,
         int permitLimit,
         TimeSpan window)
@@ -17,15 +31,11 @@ public static class Installer
         {
             options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
     
-            options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(
-                _ =>
-                    RateLimitPartition.GetFixedWindowLimiter(
-                        partitionKey: "global",
-                        factory: _ => new FixedWindowRateLimiterOptions
-                        {
-                            PermitLimit = permitLimit,
-                            Window = window
-                        }));
+            options.AddFixedWindowLimiter(Constants.ApiGuardDefaultPolicyName, limiterOptions =>
+            {
+                limiterOptions.PermitLimit = permitLimit;
+                limiterOptions.Window = window;
+            });
         });
         
         return services;
