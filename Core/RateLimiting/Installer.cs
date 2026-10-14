@@ -27,18 +27,10 @@ public static class Installer
         int permitLimit,
         TimeSpan window)
     {
-        services.AddRateLimiter(options =>
-        {
-            options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-    
-            options.AddFixedWindowLimiter(Constants.ApiGuardDefaultPolicyName, limiterOptions =>
-            {
-                limiterOptions.PermitLimit = permitLimit;
-                limiterOptions.Window = window;
-            });
-        });
-        
-        return services;
+        return services.AddFixedWindowRateLimitingPolicy(
+            Constants.ApiGuardDefaultPolicyName,
+            permitLimit,
+            window);
     }
     
     public static IServiceCollection AddFixedWindowRateLimitingPolicy(

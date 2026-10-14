@@ -20,7 +20,7 @@ public class SampleController : ControllerBase
             .IsNotNullOrEmptyList(request.PastDepartments,  nameof(request.PastDepartments))
             .Result();
 
-        if (validationResult.Error is not null)
+        if (!validationResult.IsValid)
         {
             throw new ApiValidationException(validationResult.Error);
         }

@@ -9,14 +9,14 @@ public partial class Validate
         Type type,
         string propertyName) where T : notnull
     {
-        if (Error is not null)
+        if (_error is not null)
         {
             return this;
         }
 
         if (!type.IsInstanceOfType(property))
         {
-            Error = new ValidationError
+            _error = new ValidationError
             {
                 PropertyName = propertyName,
                 ErrorMessage = $"{typeof(T)} is not assignable to {type.Name} type."

@@ -8,14 +8,14 @@ public partial class Validate
         IEnumerable<T>? property,
         string propertyName)
     {
-        if (Error is not null)
+        if (_error is not null)
         {
             return this;
         }
 
         if (property is null || !property.Any())
         {
-            Error = new ValidationError
+            _error = new ValidationError
             {
                 PropertyName = propertyName,
                 ErrorMessage = "List property must not be null or empty."

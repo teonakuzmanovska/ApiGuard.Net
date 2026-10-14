@@ -8,14 +8,14 @@ public partial class Validate
         T? property,
         string propertyName)
     {
-        if (Error is not null)
+        if (_error is not null)
         {
             return this;
         }
 
         if (property is null)
         {
-            Error = new ValidationError
+            _error = new ValidationError
             {
                 PropertyName = propertyName,
                 ErrorMessage = "Property must not be null."

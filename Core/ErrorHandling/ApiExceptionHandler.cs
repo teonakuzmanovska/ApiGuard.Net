@@ -1,9 +1,10 @@
 ﻿using Core.Validations.Exceptions;
+
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.ErrorHandling;
-using Microsoft.AspNetCore.Diagnostics;
 
 public class ApiExceptionHandler : IExceptionHandler
 {

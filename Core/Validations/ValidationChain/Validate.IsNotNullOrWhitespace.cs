@@ -8,14 +8,14 @@ public partial class Validate
         string? property,
         string propertyName)
     {
-        if (Error is not null)
+        if (_error is not null)
         {
             return this;
         }
 
         if (string.IsNullOrWhiteSpace(property))
         {
-            Error = new ValidationError
+            _error = new ValidationError
             {
                 PropertyName = propertyName,
                 ErrorMessage = "String property must not be null, empty or whitespace."

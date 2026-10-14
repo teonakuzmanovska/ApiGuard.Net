@@ -9,14 +9,14 @@ public partial class Validate
         Type type,
         string propertyName) where T : notnull
     {
-        if (Error is not null)
+        if (_error is not null)
         {
             return this;
         }
 
         if (property.GetType() != type)
         {
-            Error = new ValidationError
+            _error = new ValidationError
             {
                 PropertyName = propertyName,
                 ErrorMessage = $"Property must be exactly of type {type.Name}."

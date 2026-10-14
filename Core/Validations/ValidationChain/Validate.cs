@@ -4,13 +4,7 @@ namespace Core.Validations.ValidationChain;
 
 public partial class Validate
 {
-    private ValidationError? Error { get; set; }
+    private ValidationError? _error;
 
-    public ValidationResult Result()
-    {
-        return new ValidationResult
-        {
-            Error = Error
-        };
-    }
+    public ValidationResult Result() => new() { Error = _error };
 }
