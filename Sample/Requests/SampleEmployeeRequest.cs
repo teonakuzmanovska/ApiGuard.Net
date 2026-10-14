@@ -1,6 +1,6 @@
 ﻿namespace Sample.Requests;
 
-public class CreateEmployeeRequest
+public class SampleEmployeeRequest
 {
     public required string? Name { get; init; }
 

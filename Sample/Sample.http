@@ -2,7 +2,7 @@
 
 ### Valid request - 200
 
-POST {{Sample_HostAddress}}/api/sample/validateAndCreate
+POST {{Sample_HostAddress}}/api/sample/validateRequest
 Content-Type: application/json
 
 {
@@ -14,7 +14,7 @@ Content-Type: application/json
 
 ### Null age - 400
 
-POST {{Sample_HostAddress}}/api/sample/validateAndCreate
+POST {{Sample_HostAddress}}/api/sample/validateRequest
 Content-Type: application/json
 
 {

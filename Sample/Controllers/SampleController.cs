@@ -10,8 +10,8 @@ namespace Sample.Controllers;
 [Route("api/[controller]")]
 public class SampleController : ControllerBase
 {
-    [HttpPost("validateAndCreate")]
-    public IActionResult ValidateAndCreate(CreateEmployeeRequest request)
+    [HttpPost("validateRequest")]
+    public IActionResult ValidateRequest(SampleEmployeeRequest request)
     {
         var validationResult = new Validate()
             .IsNotNullOrWhitespace(request.Name, nameof(request.Name))
