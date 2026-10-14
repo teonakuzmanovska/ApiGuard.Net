@@ -1,6 +1,5 @@
 using Core.ErrorHandling;
 using Core.RateLimiting;
-using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 

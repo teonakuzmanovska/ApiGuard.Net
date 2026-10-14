@@ -1,4 +1,4 @@
-﻿using Core.Validations.Exceptions;
+﻿using Core.Validations.Extensions;
 using Core.Validations.ValidationChain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
@@ -17,12 +17,12 @@ public class SampleController : ControllerBase
             .IsNotNullOrWhitespace(request.Name, nameof(request.Name))
             .IsNotNull(request.Age, nameof(request.Age))
             .IsExactType(request.CurrentDepartment, typeof(Department), nameof(request.CurrentDepartment))
-            .IsNotNullOrEmptyList(request.PastDepartments,  nameof(request.PastDepartments))
+            .IsNotNullOrEmptyList(request.PastDepartments, nameof(request.PastDepartments))
             .Result();
 
         if (!validationResult.IsValid)
         {
-            throw new ApiValidationException(validationResult.Error);
+            return validationResult.Error.ToBadRequest();
         }
         
         return Ok();
