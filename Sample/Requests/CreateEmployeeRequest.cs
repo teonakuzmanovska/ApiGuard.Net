@@ -6,9 +6,13 @@ public class CreateEmployeeRequest
 
     public required int? Age { get; init; }
 
-    public Department CurrentDepartment { get; set; }
+    public Department CurrentDepartment { get; init; }
 
-    public List<Department> PastDepartments { get; init; } = new();
+    public List<Department> PastDepartments
+    {
+        get => field;
+        init => field = value;
+    } = new();
 }
 
 public enum Department

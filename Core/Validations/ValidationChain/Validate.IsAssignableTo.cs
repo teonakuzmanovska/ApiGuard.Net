@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Core.Validations.Models;
+﻿using Core.Validations.Models;
 
 namespace Core.Validations.ValidationChain;
 
