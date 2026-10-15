@@ -1,7 +1,9 @@
 ﻿$url = "http://localhost:5069/api/sample/rateLimiting/policy1"
 
-for ($i = 1; $i -le 2; $i++) {
-    try {
+for ($i = 1; $i -le 2; $i++)
+{
+    try
+    {
         $response = Invoke-WebRequest `
             -Uri $url `
             -Method GET `
@@ -9,7 +11,8 @@ for ($i = 1; $i -le 2; $i++) {
 
         Write-Host "Policy 1 - Request $i -> $($response.StatusCode)"
     }
-    catch {
+    catch
+    {
         Write-Host "Policy 1 - Request $i -> $($_.Exception.Response.StatusCode.value__)"
     }
 }
