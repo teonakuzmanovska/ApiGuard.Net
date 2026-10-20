@@ -1,5 +1,6 @@
 ﻿using Core.ErrorHandling;
 using Core.RateLimiting;
+using Core.RateLimiting.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,11 +10,11 @@ public static class Installer
 {
     public static IServiceCollection AddApiGuard(
         this IServiceCollection services,
-        DefaultFixedWindowRateLimitingOptions rateLimitingOptions)
+        ApiGuardRateLimitingOptions rateLimitingOptions)
     {
         services.AddExceptionHandler<ApiExceptionHandler>();
         services.AddProblemDetails();
-        services.AddDefaultFixedWindowRateLimitingPolicy(rateLimitingOptions.PermitLimit, rateLimitingOptions.Window);
+        services.AddDefaultSlidingWindowRateLimitingPolicy(rateLimitingOptions);
 
         return services;
     }

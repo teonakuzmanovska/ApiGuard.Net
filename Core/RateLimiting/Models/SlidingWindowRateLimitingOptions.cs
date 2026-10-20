@@ -1,6 +1,6 @@
-﻿namespace Core.RateLimiting;
+﻿namespace Core.RateLimiting.Models;
 
-public class DefaultFixedWindowRateLimitingOptions
+public class SlidingWindowRateLimitingOptions
 {
     public required int PermitLimit { get; init; }
 
